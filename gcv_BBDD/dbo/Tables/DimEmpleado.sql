@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[DimEmpleado] (
+    [DNI]           NVARCHAR (255) NOT NULL,
+    [NOMBRE]        NVARCHAR (255) NULL,
+    [RESPONSABLE]   NVARCHAR (255) NULL,
+    [FECHA_ENTRADA] DATETIME       NULL,
+    [CORREO]        NVARCHAR (255) NULL,
+    [VACACIONES]    INT            NULL,
+    [ACTIVO]        NVARCHAR (50)  NULL,
+    CONSTRAINT [PK_DimEmpleado] PRIMARY KEY CLUSTERED ([DNI] ASC)
+);
+
+
+

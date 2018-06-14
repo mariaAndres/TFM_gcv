@@ -1,0 +1,6 @@
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\bin\Model.asdatabase
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\bin\Model.deploymenttargets
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\bin\Model.deploymentoptions
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\obj\Development\Model.asdatabase
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\obj\Development\Model.deploymentoptions
+\\workstation\Users\andres.moncada\Documents\Visual Studio 2015\Projects\MigrationUnHiberse_BOSONITBI\gcv\gcv_SSAS\obj\Development\Model.deploymenttargets

@@ -1,0 +1,2536 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/15/2018 11:55:46 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WORKSTATION"
+  DTS:CreatorName="BOSONITDEV\bosonit"
+  DTS:DelayValidation="True"
+  DTS:DTSID="{F00C7504-2A49-4BC6-8475-13AB400BCAD4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3008.28"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CargaProyectos"
+  DTS:PackageType="5"
+  DTS:VersionBuild="79"
+  DTS:VersionGUID="{F24C782D-10F6-4A9C-A5CA-D296898C9266}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.12.1.145.intrahib.bosonitReadOnly]"
+      DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=6.10.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
+      DTS:DTSID="{8841FAAC-8528-4C93-A840-BA2E98397E3F}"
+      DTS:ObjectName="10.12.1.145.intrahib.bosonitReadOnly">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="server=10.12.1.145;user id=bosonitReadOnly;port=3306;persistsecurityinfo=True;logging=False;protocol=Socket;database=intrahib;">
+          <DTS:Password
+            DTS:Name="password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAjYTNUp/iTEq4C1Frw5zGRQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAA8HNi/29oa8x6wsKP8N0LeAAAAAASAAACgAAAAEAAAANz/eHMg/DfPoyLu4FFD+L8oAAAAe2dImHMiYD2U2EI7DLXUONEQkskcvcL69Cwi0Fxmuhf07IV/HekWvBQAAADYR8rJRdHTA30bxL2CRsHhjiV7bQ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.gcv]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B4F19D2A-C282-4193-BAED-E9D036DF6821}"
+      DTS:ObjectName="BOSONITBI.gcv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=gcv;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Añade proyectos de unhiberse"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{793C8D8A-A6F7-4F44-A6F4-F61B8F6E6080}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Añade proyectos de unhiberse"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferMaxRows="1000000"
+          version="1">
+          <components>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Almacena DimProyectos facturables"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[DimProyectos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[idProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="idProyecto"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[idProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[nombreProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="150"
+                      cachedName="nombreProyecto"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[nombreTercero]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="nombreTercero"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreTercero]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreTercero]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidCliente]"
+                      cachedDataType="i4"
+                      cachedName="fkidCliente"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidCliente]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidCliente]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidOrigen]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="fkidOrigen"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidOrigen]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidOrigen]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidEstado]"
+                      cachedDataType="i4"
+                      cachedName="fkidEstado"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEstado]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEstado]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidTipoAct]"
+                      cachedDataType="i4"
+                      cachedName="fkidTipoAct"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidTipoAct]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidZonaTer]"
+                      cachedDataType="i4"
+                      cachedName="fkidZonaTer"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidZonaTer]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidZonaTer]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidUnidad]"
+                      cachedDataType="i4"
+                      cachedName="fkidUnidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidUnidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidUnidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidComercial]"
+                      cachedDataType="i4"
+                      cachedName="fkidComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidDireccion]"
+                      cachedDataType="i4"
+                      cachedName="fkidDireccion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDireccion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDireccion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidEmpresa]"
+                      cachedDataType="i4"
+                      cachedName="fkidEmpresa"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEmpresa]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEmpresa]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[importeProyecto]"
+                      cachedDataType="numeric"
+                      cachedName="importeProyecto"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[importeProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[importeProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[probExito]"
+                      cachedDataType="i4"
+                      cachedName="probExito"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[probExito]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[probExito]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fechaIni]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaIni"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaIni]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaIni]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fechaPresenta]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaPresenta"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaPresenta]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaPresenta]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fechaAceptacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaAceptacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaAceptacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaAceptacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fechaCierre]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaCierre"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaCierre]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaCierre]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[estado]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="estado"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[estado]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[estado]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[tipoActividad]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="tipoActividad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[tipoActividad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[tipoActividad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[zonaTerritorial]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="zonaTerritorial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[zonaTerritorial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[zonaTerritorial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[nombreUnidad]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="nombreUnidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreUnidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreUnidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[responsableComercial]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="responsableComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[responsableComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[direccionComercial]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="direccionComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[direccionComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[direccionComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[delegacion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="delegacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[delegacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[delegacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[empresa]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="empresa"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[empresa]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[empresa]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[Copy of fechaOportunidad]"
+                      cachedDataType="dbTime"
+                      cachedName="Copy of fechaOportunidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaOportunidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output].Columns[Copy of fechaOportunidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkidDelegacion]"
+                      cachedDataType="i4"
+                      cachedName="fkidDelegacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDelegacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDelegacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[fkIdFacturacion]"
+                      cachedDataType="i4"
+                      cachedName="fkIdFacturacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkIdFacturacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[nombreCompletoFacturacion]"
+                      cachedDataType="wstr"
+                      cachedLength="137"
+                      cachedName="nombreCompletoFacturacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreCompletoFacturacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].Columns[siFact]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="siFact"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[facturable]"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[siFact]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[idProyecto]"
+                      dataType="wstr"
+                      length="20"
+                      name="idProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreProyecto]"
+                      dataType="wstr"
+                      length="150"
+                      name="nombreProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreTercero]"
+                      dataType="wstr"
+                      length="200"
+                      name="nombreTercero" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidCliente]"
+                      dataType="i4"
+                      name="fkidCliente" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidOrigen]"
+                      dataType="wstr"
+                      length="100"
+                      name="fkidOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEstado]"
+                      dataType="i4"
+                      name="fkidEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidTipoAct]"
+                      dataType="i4"
+                      name="fkidTipoAct" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidZonaTer]"
+                      dataType="i4"
+                      name="fkidZonaTer" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidUnidad]"
+                      dataType="i4"
+                      name="fkidUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidComercial]"
+                      dataType="i4"
+                      name="fkidComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDireccion]"
+                      dataType="i4"
+                      name="fkidDireccion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDelegacion]"
+                      dataType="i4"
+                      name="fkidDelegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEmpresa]"
+                      dataType="i4"
+                      name="fkidEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[importeProyecto]"
+                      dataType="numeric"
+                      name="importeProyecto"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[probExito]"
+                      dataType="i4"
+                      name="probExito" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaIni]"
+                      dataType="dbTimeStamp"
+                      name="fechaIni" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaPresenta]"
+                      dataType="dbTimeStamp"
+                      name="fechaPresenta" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaAceptacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaAceptacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaCierre]"
+                      dataType="dbTimeStamp"
+                      name="fechaCierre" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaOportunidad]"
+                      dataType="dbTimeStamp"
+                      name="fechaOportunidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[estado]"
+                      dataType="wstr"
+                      length="200"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[tipoActividad]"
+                      dataType="wstr"
+                      length="50"
+                      name="tipoActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[zonaTerritorial]"
+                      dataType="wstr"
+                      length="100"
+                      name="zonaTerritorial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreUnidad]"
+                      dataType="wstr"
+                      length="100"
+                      name="nombreUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableComercial]"
+                      dataType="wstr"
+                      length="100"
+                      name="responsableComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[direccionComercial]"
+                      dataType="wstr"
+                      length="50"
+                      name="direccionComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[delegacion]"
+                      dataType="wstr"
+                      length="50"
+                      name="delegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[empresa]"
+                      dataType="wstr"
+                      length="50"
+                      name="empresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidFacturacion]"
+                      dataType="i4"
+                      name="fkidFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableFacturacion]"
+                      dataType="wstr"
+                      length="100"
+                      name="responsableFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[esRecurrente]"
+                      dataType="wstr"
+                      length="10"
+                      name="esRecurrente" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input].ExternalColumns[facturable]"
+                      dataType="wstr"
+                      length="10"
+                      name="facturable" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Almacena DimProyectos no facturables"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[DimProyectos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[idProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="idProyecto"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[idProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[nombreProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="150"
+                      cachedName="nombreProyecto"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[nombreTercero]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="nombreTercero"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreTercero]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreTercero]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidCliente]"
+                      cachedDataType="i4"
+                      cachedName="fkidCliente"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidCliente]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidCliente]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidOrigen]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="fkidOrigen"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidOrigen]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidOrigen]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidEstado]"
+                      cachedDataType="i4"
+                      cachedName="fkidEstado"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEstado]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEstado]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidTipoAct]"
+                      cachedDataType="i4"
+                      cachedName="fkidTipoAct"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidTipoAct]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidZonaTer]"
+                      cachedDataType="i4"
+                      cachedName="fkidZonaTer"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidZonaTer]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidZonaTer]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidUnidad]"
+                      cachedDataType="i4"
+                      cachedName="fkidUnidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidUnidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidUnidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidComercial]"
+                      cachedDataType="i4"
+                      cachedName="fkidComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidDireccion]"
+                      cachedDataType="i4"
+                      cachedName="fkidDireccion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDireccion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDireccion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidEmpresa]"
+                      cachedDataType="i4"
+                      cachedName="fkidEmpresa"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEmpresa]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEmpresa]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[importeProyecto]"
+                      cachedDataType="numeric"
+                      cachedName="importeProyecto"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[importeProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[importeProyecto]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[probExito]"
+                      cachedDataType="i4"
+                      cachedName="probExito"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[probExito]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[probExito]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fechaIni]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaIni"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaIni]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaIni]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fechaPresenta]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaPresenta"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaPresenta]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaPresenta]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fechaAceptacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaAceptacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaAceptacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaAceptacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fechaCierre]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaCierre"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaCierre]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaCierre]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[estado]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="estado"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[estado]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[estado]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[tipoActividad]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="tipoActividad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[tipoActividad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[tipoActividad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[zonaTerritorial]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="zonaTerritorial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[zonaTerritorial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[zonaTerritorial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[nombreUnidad]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="nombreUnidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreUnidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreUnidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[responsableComercial]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="responsableComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[responsableComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[direccionComercial]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="direccionComercial"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[direccionComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[direccionComercial]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[delegacion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="delegacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[delegacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[delegacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[empresa]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="empresa"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[empresa]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[empresa]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[Copy of fechaOportunidad]"
+                      cachedDataType="dbTime"
+                      cachedName="Copy of fechaOportunidad"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaOportunidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output].Columns[Copy of fechaOportunidad]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkidDelegacion]"
+                      cachedDataType="i4"
+                      cachedName="fkidDelegacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDelegacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDelegacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[fkIdFacturacion]"
+                      cachedDataType="i4"
+                      cachedName="fkIdFacturacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkIdFacturacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[nombreCompletoFacturacion]"
+                      cachedDataType="wstr"
+                      cachedLength="137"
+                      cachedName="nombreCompletoFacturacion"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreCompletoFacturacion]" />
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].Columns[noFact]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="noFact"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[facturable]"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[noFact]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[idProyecto]"
+                      dataType="wstr"
+                      length="20"
+                      name="idProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreProyecto]"
+                      dataType="wstr"
+                      length="150"
+                      name="nombreProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreTercero]"
+                      dataType="wstr"
+                      length="200"
+                      name="nombreTercero" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidCliente]"
+                      dataType="i4"
+                      name="fkidCliente" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidOrigen]"
+                      dataType="wstr"
+                      length="100"
+                      name="fkidOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEstado]"
+                      dataType="i4"
+                      name="fkidEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidTipoAct]"
+                      dataType="i4"
+                      name="fkidTipoAct" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidZonaTer]"
+                      dataType="i4"
+                      name="fkidZonaTer" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidUnidad]"
+                      dataType="i4"
+                      name="fkidUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidComercial]"
+                      dataType="i4"
+                      name="fkidComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDireccion]"
+                      dataType="i4"
+                      name="fkidDireccion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidDelegacion]"
+                      dataType="i4"
+                      name="fkidDelegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidEmpresa]"
+                      dataType="i4"
+                      name="fkidEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[importeProyecto]"
+                      dataType="numeric"
+                      name="importeProyecto"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[probExito]"
+                      dataType="i4"
+                      name="probExito" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaIni]"
+                      dataType="dbTimeStamp"
+                      name="fechaIni" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaPresenta]"
+                      dataType="dbTimeStamp"
+                      name="fechaPresenta" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaAceptacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaAceptacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaCierre]"
+                      dataType="dbTimeStamp"
+                      name="fechaCierre" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fechaOportunidad]"
+                      dataType="dbTimeStamp"
+                      name="fechaOportunidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[estado]"
+                      dataType="wstr"
+                      length="200"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[tipoActividad]"
+                      dataType="wstr"
+                      length="50"
+                      name="tipoActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[zonaTerritorial]"
+                      dataType="wstr"
+                      length="100"
+                      name="zonaTerritorial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[nombreUnidad]"
+                      dataType="wstr"
+                      length="100"
+                      name="nombreUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableComercial]"
+                      dataType="wstr"
+                      length="100"
+                      name="responsableComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[direccionComercial]"
+                      dataType="wstr"
+                      length="50"
+                      name="direccionComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[delegacion]"
+                      dataType="wstr"
+                      length="50"
+                      name="delegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[empresa]"
+                      dataType="wstr"
+                      length="50"
+                      name="empresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[fkidFacturacion]"
+                      dataType="i4"
+                      name="fkidFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[responsableFacturacion]"
+                      dataType="wstr"
+                      length="100"
+                      name="responsableFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input].ExternalColumns[facturable]"
+                      dataType="wstr"
+                      length="10"
+                      name="facturable" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Añadir facturable-no facturable"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[siFact]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[siFact]"
+                      name="siFact"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Si"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Si"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[noFact]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output].Columns[noFact]"
+                      name="noFact"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"No"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"No"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Comprueba repetidos"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Comprueba repetidos"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProyectos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProyectos]) [refTable]
+where [refTable].[id] = ? and [refTable].[idProyecto] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idProyecto" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreProyecto" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreTercero" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidCliente" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidOrigen" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidEstado" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidTipoAct" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidZonaTer" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidUnidad" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidComercial" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidDireccion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidDelegacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidEmpresa" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="importeProyecto" dataType="DT_NUMERIC" length="0" precision="15" scale="2" codePage="0"/&gt;&lt;referenceColumn name="probExito" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaIni" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaPresenta" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaAceptacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaCierre" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaOportunidad" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="estado" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="tipoActividad" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="zonaTerritorial" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreUnidad" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="responsableComercial" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="direccionComercial" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="delegacion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="empresa" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidFacturacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="responsableFacturacion" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="esRecurrente" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]};#{Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input].Columns[idProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="idProyecto"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">idProyecto</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input].Columns[fkidTipoAct]"
+                      cachedDataType="i4"
+                      cachedName="fkidTipoAct"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[No Facturables]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="No Facturables"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]} == 3</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">fkidTipoAct == 3</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="Conexión Unhiberse"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT pv.*,pr.fkIdFacturacion 
+FROM intrahib.proyectos_view pv 
+join pr_proyectos pr on pr.idProyecto=pv.idProyecto
+WHERE empresa = 'Bosonit'</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.12.1.145.intrahib.bosonitReadOnly]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.12.1.145.intrahib.bosonitReadOnly]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[id]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[idProyecto]"
+                      length="20"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idProyecto]"
+                      name="idProyecto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreProyecto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreProyecto]"
+                      length="150"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreProyecto]"
+                      name="nombreProyecto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreTercero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreTercero]"
+                      length="200"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreTercero]"
+                      name="nombreTercero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidCliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidCliente]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidCliente]"
+                      name="fkidCliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidOrigen]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidOrigen]"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidOrigen]"
+                      name="fkidOrigen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEstado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidEstado]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEstado]"
+                      name="fkidEstado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidTipoAct]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidTipoAct]"
+                      name="fkidTipoAct"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidZonaTer]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidZonaTer]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidZonaTer]"
+                      name="fkidZonaTer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidProyecto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidProyecto]"
+                      name="fkidProyecto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidUnidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidUnidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidUnidad]"
+                      name="fkidUnidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidComercial]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidComercial]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidComercial]"
+                      name="fkidComercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDireccion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidDireccion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDireccion]"
+                      name="fkidDireccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDelegacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidDelegacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidDelegacion]"
+                      name="fkidDelegacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEmpresa]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidEmpresa]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkidEmpresa]"
+                      name="fkidEmpresa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[importeProyecto]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[importeProyecto]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[importeProyecto]"
+                      name="importeProyecto"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[probExito]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[probExito]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[probExito]"
+                      name="probExito"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaIni]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaIni]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaIni]"
+                      name="fechaIni"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaPresenta]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaPresenta]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaPresenta]"
+                      name="fechaPresenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaAceptacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaAceptacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaAceptacion]"
+                      name="fechaAceptacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaCierre]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaCierre]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaCierre]"
+                      name="fechaCierre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaOportunidad]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaOportunidad]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaOportunidad]"
+                      name="fechaOportunidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[estado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[estado]"
+                      length="200"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[estado]"
+                      name="estado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[tipoActividad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[tipoActividad]"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[tipoActividad]"
+                      name="tipoActividad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[zonaTerritorial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[zonaTerritorial]"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[zonaTerritorial]"
+                      name="zonaTerritorial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreUnidad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreUnidad]"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreUnidad]"
+                      name="nombreUnidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[responsableComercial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[responsableComercial]"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[responsableComercial]"
+                      name="responsableComercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[direccionComercial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[direccionComercial]"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[direccionComercial]"
+                      name="direccionComercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[delegacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[delegacion]"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[delegacion]"
+                      name="delegacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[empresa]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[empresa]"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[empresa]"
+                      name="empresa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idRespFacturacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[idRespFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[idRespFacturacion]"
+                      name="idRespFacturacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[respFacturacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[respFacturacion]"
+                      length="45"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[respFacturacion]"
+                      name="respFacturacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[emailRespFacturacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[emailRespFacturacion]"
+                      length="250"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[emailRespFacturacion]"
+                      name="emailRespFacturacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreCompletoFacturacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreCompletoFacturacion]"
+                      length="137"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[nombreCompletoFacturacion]"
+                      name="nombreCompletoFacturacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkIdFacturacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkIdFacturacion]"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fkIdFacturacion]"
+                      name="fkIdFacturacion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[idProyecto]"
+                      dataType="wstr"
+                      length="20"
+                      name="idProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreProyecto]"
+                      dataType="wstr"
+                      length="150"
+                      name="nombreProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreTercero]"
+                      dataType="wstr"
+                      length="200"
+                      name="nombreTercero" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidCliente]"
+                      dataType="i4"
+                      name="fkidCliente" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidOrigen]"
+                      dataType="wstr"
+                      length="100"
+                      name="fkidOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidEstado]"
+                      dataType="i4"
+                      name="fkidEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidTipoAct]"
+                      dataType="i4"
+                      name="fkidTipoAct" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidZonaTer]"
+                      dataType="i4"
+                      name="fkidZonaTer" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidProyecto]"
+                      dataType="i4"
+                      name="fkidProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidUnidad]"
+                      dataType="i4"
+                      name="fkidUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidComercial]"
+                      dataType="i4"
+                      name="fkidComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidDireccion]"
+                      dataType="i4"
+                      name="fkidDireccion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidDelegacion]"
+                      dataType="i4"
+                      name="fkidDelegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkidEmpresa]"
+                      dataType="i4"
+                      name="fkidEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[importeProyecto]"
+                      dataType="numeric"
+                      name="importeProyecto"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[probExito]"
+                      dataType="i4"
+                      name="probExito" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaIni]"
+                      dataType="dbTimeStamp"
+                      name="fechaIni" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaPresenta]"
+                      dataType="dbTimeStamp"
+                      name="fechaPresenta" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaAceptacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaAceptacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaCierre]"
+                      dataType="dbTimeStamp"
+                      name="fechaCierre" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fechaOportunidad]"
+                      dataType="dbTimeStamp"
+                      name="fechaOportunidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[estado]"
+                      dataType="wstr"
+                      length="200"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[tipoActividad]"
+                      dataType="wstr"
+                      length="50"
+                      name="tipoActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[zonaTerritorial]"
+                      dataType="wstr"
+                      length="100"
+                      name="zonaTerritorial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreUnidad]"
+                      dataType="wstr"
+                      length="100"
+                      name="nombreUnidad" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[responsableComercial]"
+                      dataType="wstr"
+                      length="100"
+                      name="responsableComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[direccionComercial]"
+                      dataType="wstr"
+                      length="50"
+                      name="direccionComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[delegacion]"
+                      dataType="wstr"
+                      length="50"
+                      name="delegacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[empresa]"
+                      dataType="wstr"
+                      length="50"
+                      name="empresa" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[idRespFacturacion]"
+                      dataType="i4"
+                      name="idRespFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[respFacturacion]"
+                      dataType="wstr"
+                      length="45"
+                      name="respFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[emailRespFacturacion]"
+                      dataType="wstr"
+                      length="250"
+                      name="emailRespFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[nombreCompletoFacturacion]"
+                      dataType="wstr"
+                      length="137"
+                      name="nombreCompletoFacturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].ExternalColumns[fkIdFacturacion]"
+                      dataType="i4"
+                      name="fkIdFacturacion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[id]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[idProyecto]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[idProyecto]"
+                      name="idProyecto" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreProyecto]"
+                      dataType="wstr"
+                      length="150"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreProyecto]"
+                      name="nombreProyecto" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreTercero]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreTercero]"
+                      name="nombreTercero" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidCliente]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidCliente]"
+                      name="fkidCliente" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidOrigen]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidOrigen]"
+                      name="fkidOrigen" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidEstado]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidEstado]"
+                      name="fkidEstado" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidTipoAct]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidTipoAct]"
+                      name="fkidTipoAct" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidZonaTer]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidZonaTer]"
+                      name="fkidZonaTer" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidProyecto]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidProyecto]"
+                      name="fkidProyecto" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidUnidad]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidUnidad]"
+                      name="fkidUnidad" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidComercial]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidComercial]"
+                      name="fkidComercial" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidDireccion]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidDireccion]"
+                      name="fkidDireccion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidDelegacion]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidDelegacion]"
+                      name="fkidDelegacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidEmpresa]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkidEmpresa]"
+                      name="fkidEmpresa" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[importeProyecto]"
+                      dataType="numeric"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[importeProyecto]"
+                      name="importeProyecto"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[probExito]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[probExito]"
+                      name="probExito" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaIni]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaIni]"
+                      name="fechaIni" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaPresenta]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaPresenta]"
+                      name="fechaPresenta" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaAceptacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaAceptacion]"
+                      name="fechaAceptacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaCierre]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaCierre]"
+                      name="fechaCierre" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaOportunidad]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fechaOportunidad]"
+                      name="fechaOportunidad" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[estado]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[estado]"
+                      name="estado" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[tipoActividad]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[tipoActividad]"
+                      name="tipoActividad" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[zonaTerritorial]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[zonaTerritorial]"
+                      name="zonaTerritorial" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreUnidad]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreUnidad]"
+                      name="nombreUnidad" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[responsableComercial]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[responsableComercial]"
+                      name="responsableComercial" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[direccionComercial]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[direccionComercial]"
+                      name="direccionComercial" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[delegacion]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[delegacion]"
+                      name="delegacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[empresa]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[empresa]"
+                      name="empresa" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[idRespFacturacion]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[idRespFacturacion]"
+                      name="idRespFacturacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[respFacturacion]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[respFacturacion]"
+                      name="respFacturacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[emailRespFacturacion]"
+                      dataType="wstr"
+                      length="250"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[emailRespFacturacion]"
+                      name="emailRespFacturacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreCompletoFacturacion]"
+                      dataType="wstr"
+                      length="137"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[nombreCompletoFacturacion]"
+                      name="nombreCompletoFacturacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkIdFacturacion]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[fkIdFacturacion]"
+                      name="fkIdFacturacion" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Añade proyectos de unhiberse\Conversión fecha"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Conversión fecha"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Añade proyectos de unhiberse\Conversión fecha.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conversión fecha.Inputs[Data Conversion Input].Columns[fechaOportunidad]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaOportunidad"
+                      lineageId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaOportunidad]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Conversión fecha.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output].Columns[Copy of fechaOportunidad]"
+                      dataType="dbTime"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output].Columns[Copy of fechaOportunidad]"
+                      name="Copy of fechaOportunidad"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output].Columns[fechaOportunidad]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Añade proyectos de unhiberse\Conversión fecha.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[ADO NET Source Output]"
+              endId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Inputs[Lookup Input]"
+              name="ADO NET Source Output"
+              startId="Package\Añade proyectos de unhiberse\Conexión Unhiberse.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[Conditional Split Default Output]"
+              endId="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables.Inputs[OLE DB Destination Input]"
+              name="Conditional Split Default Output"
+              startId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[Conditional Split Default Output]" />
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[Data Conversion Output]"
+              endId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Añade proyectos de unhiberse\Conversión fecha.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[Derived Column Output]"
+              endId="Package\Añade proyectos de unhiberse\Conditional Split.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[Lookup No Match Output]"
+              endId="Package\Añade proyectos de unhiberse\Conversión fecha.Inputs[Data Conversion Input]"
+              name="Lookup No Match Output"
+              startId="Package\Añade proyectos de unhiberse\Comprueba repetidos.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Añade proyectos de unhiberse.Paths[NoFacturables]"
+              endId="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables.Inputs[OLE DB Destination Input]"
+              name="NoFacturables"
+              startId="Package\Añade proyectos de unhiberse\Conditional Split.Outputs[No Facturables]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Borrar tabla Proyectos para cargar nuevos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2E0BE6DD-3934-412F-9F0A-FD6A53B111A3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar tabla Proyectos para cargar nuevos"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B4F19D2A-C282-4193-BAED-E9D036DF6821}"
+          SQLTask:SqlStatementSource="  truncate table  [gcv].[dbo].[DimProyectos]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{318E214F-04A6-4846-AABE-943DC86D44E7}"
+      DTS:From="Package\Borrar tabla Proyectos para cargar nuevos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Añade proyectos de unhiberse" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="220.8,41.6"
+          Id="Package\Añade proyectos de unhiberse"
+          TopLeft="343,183" />
+        <NodeLayout
+          Size="276.8,41.6"
+          Id="Package\Borrar tabla Proyectos para cargar nuevos"
+          TopLeft="317.785713302846,75.394117715697" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="454.792856651423,116.994117715697">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.005882284303"
+              Start="0,0"
+              End="0,58.505882284303">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.505882284303" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Añade proyectos de unhiberse">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="261.6,41.6"
+          Id="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables"
+          TopLeft="140.874999591282,498.764705710757" />
+        <NodeLayout
+          Size="224.8,41.6"
+          Id="Package\Añade proyectos de unhiberse\Añadir facturable-no facturable"
+          TopLeft="279.785713847803,325.382352855379" />
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\Añade proyectos de unhiberse\Conexión Unhiberse"
+          TopLeft="302.5,55.5" />
+        <NodeLayout
+          Size="159.2,41.6"
+          Id="Package\Añade proyectos de unhiberse\Conversión fecha"
+          TopLeft="314.875,258" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Añade proyectos de unhiberse\Comprueba repetidos"
+          TopLeft="302.875000340598,148.882352855379" />
+        <NodeLayout
+          Size="246.4,41.6"
+          Id="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables"
+          TopLeft="438.732142769561,498.105882284303" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Añade proyectos de unhiberse\Conditional Split"
+          TopLeft="304,392" />
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[NoFacturables]"
+          TopLeft="356.8,433.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-85.1250004087175,65.1647057107575"
+              Start="0,0"
+              End="-85.1250004087175,57.6647057107575">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.4668958579077" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.4668958579077"
+                    Point2="0,26.4668958579077"
+                    Point3="-4,26.4668958579077" />
+                  <mssgle:LineSegment
+                    End="-81.1250004087175,26.4668958579077" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-81.1250004087175,26.4668958579077"
+                    Point2="-85.1250004087175,26.4668958579077"
+                    Point3="-85.1250004087175,30.4668958579077" />
+                  <mssgle:LineSegment
+                    End="-85.1250004087175,57.6647057107575" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-75.9050783293588,31.4668958579077,66.68515625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[Lookup No Match Output]"
+          TopLeft="393.675000170299,190.482352855379">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67.5176471446212"
+              Start="0,0"
+              End="0,60.0176471446212">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.0176471446212" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,24.2041360723106,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[Derived Column Output]"
+          TopLeft="392.185713847803,366.982352855379">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.9857138478026,25.0176471446212"
+              Start="0,0"
+              End="-10.9857138478026,17.5176471446212">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.5088235723106" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.5088235723106"
+                    Point2="0,12.5088235723106"
+                    Point3="-4,12.5088235723106" />
+                  <mssgle:LineSegment
+                    End="-6.98571384780263,12.5088235723106" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.98571384780263,12.5088235723106"
+                    Point2="-10.9857138478026,12.5088235723106"
+                    Point3="-10.9857138478026,16.5088235723106" />
+                  <mssgle:LineSegment
+                    End="-10.9857138478026,17.5176471446212" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[Data Conversion Output]"
+          TopLeft="393.330356923901,299.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.7823528553787"
+              Start="0,0"
+              End="0,18.2823528553787">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.2823528553787" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[Conditional Split Default Output]"
+          TopLeft="405.6,433.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156.332142769561,64.5058822843029"
+              Start="0,0"
+              End="156.332142769561,57.0058822843029">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.1993121893169" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.1993121893169"
+                    Point2="0,26.1993121893169"
+                    Point3="4,26.1993121893169" />
+                  <mssgle:LineSegment
+                    End="152.332142769561,26.1993121893169" />
+                  <mssgle:CubicBezierSegment
+                    Point1="152.332142769561,26.1993121893169"
+                    Point2="156.332142769561,26.1993121893169"
+                    Point3="156.332142769561,30.1993121893169" />
+                  <mssgle:LineSegment
+                    End="156.332142769561,57.0058822843029" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="7.55216513478048,31.1993121893169,141.2278125,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Añade proyectos de unhiberse.Paths[ADO NET Source Output]"
+          TopLeft="390.687500170299,97.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7823528553788"
+              Start="0,0"
+              End="0,44.2823528553788">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2823528553788" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Añade proyectos de unhiberse\Almacena DimProyectos no facturables">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Añade proyectos de unhiberse\Conexión Unhiberse">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Añade proyectos de unhiberse\Comprueba repetidos">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProyectos]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Añade proyectos de unhiberse\Almacena DimProyectos facturables">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

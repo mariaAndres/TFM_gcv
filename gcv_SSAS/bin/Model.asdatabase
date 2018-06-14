@@ -1,0 +1,1088 @@
+{
+  "name": "gcv_SSAS",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "SqlServer BOSONITBI gcv 2",
+        "connectionString": "Provider=SQLNCLI11;Data Source=BOSONITBI;Initial Catalog=gcv;User ID=Bosonit\\bosonit;Persist Security Info=false;Integrated Security=SSPI",
+        "impersonationMode": "impersonateAccount",
+        "account": "bosonit\\bosonit",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimTiempo",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "Anio",
+            "dataType": "int64",
+            "sourceColumn": "Anio",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "Semestre",
+            "dataType": "int64",
+            "sourceColumn": "Semestre",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "int64",
+            "sourceColumn": "Trimestre",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "Mes",
+            "dataType": "int64",
+            "sourceColumn": "Mes",
+            "sourceProviderType": "SmallInt"
+          },
+          {
+            "name": "NSemestre",
+            "dataType": "string",
+            "sourceColumn": "NSemestre",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "NTrimestre",
+            "dataType": "string",
+            "sourceColumn": "NTrimestre",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "NMes",
+            "dataType": "string",
+            "sourceColumn": "NMes",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "NMes3L",
+            "dataType": "string",
+            "sourceColumn": "NMes3L",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "mesAnio",
+            "dataType": "string",
+            "sourceColumn": "mesAnio",
+            "sortByColumn": "FechaSK",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FechaSK",
+            "dataType": "int64",
+            "sourceColumn": "FechaSK"
+          },
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "isKey": true,
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Semana",
+            "dataType": "int64",
+            "sourceColumn": "Semana"
+          },
+          {
+            "name": "Dia",
+            "dataType": "int64",
+            "sourceColumn": "Dia"
+          },
+          {
+            "name": "NSemana",
+            "dataType": "string",
+            "sourceColumn": "NSemana"
+          },
+          {
+            "name": "NDia",
+            "dataType": "string",
+            "sourceColumn": "NDia"
+          },
+          {
+            "name": "DiaSemana",
+            "dataType": "int64",
+            "sourceColumn": "DiaSemana"
+          },
+          {
+            "name": "NDiaSemana",
+            "dataType": "string",
+            "sourceColumn": "NDiaSemana"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Dim_Tiempo",
+            "dataView": "full",
+            "source": {
+              "query": [
+                "SELECT TOP (1000) [FechaSK]",
+                "      ,[Fecha] as Date",
+                "      ,[Anio]",
+                "      ,[Semestre]",
+                "      ,[Trimestre]",
+                "      ,[Mes]",
+                "      ,[Semana]",
+                "      ,[Dia]",
+                "      ,[NSemestre]",
+                "      ,[NTrimestre]",
+                "      ,[NMes]",
+                "      ,[NMes3L]",
+                "      ,[NSemana]",
+                "      ,[NDia]",
+                "      ,[DiaSemana]",
+                "      ,[NDiaSemana]",
+                "      ,[mesAnio]",
+                "  FROM [unhiberseDB].[dbo].[Dim_Tiempo]",
+                "  where Dia='1'"
+              ],
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT TOP (1000) [FechaSK]",
+                  "      ,[Fecha] as Date",
+                  "      ,[Anio]",
+                  "      ,[Semestre]",
+                  "      ,[Trimestre]",
+                  "      ,[Mes]",
+                  "      ,[Semana]",
+                  "      ,[Dia]",
+                  "      ,[NSemestre]",
+                  "      ,[NTrimestre]",
+                  "      ,[NMes]",
+                  "      ,[NMes3L]",
+                  "      ,[NSemana]",
+                  "      ,[NDia]",
+                  "      ,[DiaSemana]",
+                  "      ,[NDiaSemana]",
+                  "      ,[mesAnio]",
+                  "  FROM [unhiberseDB].[dbo].[Dim_Tiempo]",
+                  "  where Dia='1'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "SELECT TOP (1000) [FechaSK]",
+              "      ,[Fecha] as Date",
+              "      ,[Anio]",
+              "      ,[Semestre]",
+              "      ,[Trimestre]",
+              "      ,[Mes]",
+              "      ,[Semana]",
+              "      ,[Dia]",
+              "      ,[NSemestre]",
+              "      ,[NTrimestre]",
+              "      ,[NMes]",
+              "      ,[NMes3L]",
+              "      ,[NSemana]",
+              "      ,[NDia]",
+              "      ,[DiaSemana]",
+              "      ,[NDiaSemana]",
+              "      ,[mesAnio]",
+              "  FROM [unhiberseDB].[dbo].[Dim_Tiempo]",
+              "  where Dia='1'"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Tiempo"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT TOP (1000) [FechaSK]",
+              "      ,[Fecha] as Date",
+              "      ,[Anio]",
+              "      ,[Semestre]",
+              "      ,[Trimestre]",
+              "      ,[Mes]",
+              "      ,[Semana]",
+              "      ,[Dia]",
+              "      ,[NSemestre]",
+              "      ,[NTrimestre]",
+              "      ,[NMes]",
+              "      ,[NMes3L]",
+              "      ,[NSemana]",
+              "      ,[NDia]",
+              "      ,[DiaSemana]",
+              "      ,[NDiaSemana]",
+              "      ,[mesAnio]",
+              "  FROM [unhiberseDB].[dbo].[Dim_Tiempo]",
+              "  where Dia='1'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimEmpleado",
+        "columns": [
+          {
+            "name": "DNI",
+            "dataType": "string",
+            "sourceColumn": "DNI",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "NOMBRE",
+            "dataType": "string",
+            "sourceColumn": "NOMBRE",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "RESPONSABLE",
+            "dataType": "string",
+            "sourceColumn": "RESPONSABLE",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "FECHA_ENTRADA",
+            "dataType": "dateTime",
+            "sourceColumn": "FECHA_ENTRADA",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "CORREO",
+            "dataType": "string",
+            "sourceColumn": "CORREO",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "VACACIONES",
+            "dataType": "int64",
+            "sourceColumn": "VACACIONES",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ACTIVO",
+            "dataType": "string",
+            "sourceColumn": "ACTIVO",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimEmpleado",
+            "dataView": "full",
+            "source": {
+              "query": " SELECT [dbo].[DimEmpleado].* FROM [dbo].[DimEmpleado] ",
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [dbo].[DimEmpleado].* FROM [dbo].[DimEmpleado] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimEmpleado"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "DimProyectos",
+        "columns": [
+          {
+            "name": "id",
+            "dataType": "int64",
+            "sourceColumn": "id",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "idProyecto",
+            "dataType": "string",
+            "sourceColumn": "idProyecto",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "nombreProyecto",
+            "dataType": "string",
+            "sourceColumn": "nombreProyecto",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "nombreTercero",
+            "dataType": "string",
+            "sourceColumn": "nombreTercero",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "fkidCliente",
+            "dataType": "int64",
+            "sourceColumn": "fkidCliente",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidOrigen",
+            "dataType": "string",
+            "sourceColumn": "fkidOrigen",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "fkidEstado",
+            "dataType": "int64",
+            "sourceColumn": "fkidEstado",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidTipoAct",
+            "dataType": "int64",
+            "sourceColumn": "fkidTipoAct",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidZonaTer",
+            "dataType": "int64",
+            "sourceColumn": "fkidZonaTer",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidUnidad",
+            "dataType": "int64",
+            "sourceColumn": "fkidUnidad",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidComercial",
+            "dataType": "int64",
+            "sourceColumn": "fkidComercial",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidDireccion",
+            "dataType": "int64",
+            "sourceColumn": "fkidDireccion",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidDelegacion",
+            "dataType": "int64",
+            "sourceColumn": "fkidDelegacion",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fkidEmpresa",
+            "dataType": "int64",
+            "sourceColumn": "fkidEmpresa",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "importeProyecto",
+            "dataType": "double",
+            "sourceColumn": "importeProyecto",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "probExito",
+            "dataType": "int64",
+            "sourceColumn": "probExito",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "fechaIni",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaIni",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "fechaPresenta",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaPresenta",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "fechaAceptacion",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaAceptacion",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "fechaCierre",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaCierre",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "fechaOportunidad",
+            "dataType": "dateTime",
+            "sourceColumn": "fechaOportunidad",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "estado",
+            "dataType": "string",
+            "sourceColumn": "estado",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "tipoActividad",
+            "dataType": "string",
+            "sourceColumn": "tipoActividad",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "zonaTerritorial",
+            "dataType": "string",
+            "sourceColumn": "zonaTerritorial",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "nombreUnidad",
+            "dataType": "string",
+            "sourceColumn": "nombreUnidad",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "responsableComercial",
+            "dataType": "string",
+            "sourceColumn": "responsableComercial",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "direccionComercial",
+            "dataType": "string",
+            "sourceColumn": "direccionComercial",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "delegacion",
+            "dataType": "string",
+            "sourceColumn": "delegacion",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "empresa",
+            "dataType": "string",
+            "sourceColumn": "empresa",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "fkidFacturacion",
+            "dataType": "int64",
+            "sourceColumn": "fkidFacturacion",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "responsableFacturacion",
+            "dataType": "string",
+            "sourceColumn": "responsableFacturacion",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "facturable",
+            "dataType": "string",
+            "sourceColumn": "facturable",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimProyectos",
+            "dataView": "full",
+            "source": {
+              "query": " SELECT [dbo].[DimProyectos].* FROM [dbo].[DimProyectos] ",
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [dbo].[DimProyectos].* FROM [dbo].[DimProyectos] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "DimProyectos"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "FactCompras",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Artículo_x002f_Servicio",
+            "dataType": "string",
+            "sourceColumn": "Artículo_x002f_Servicio",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "CategoryDescription",
+            "dataType": "string",
+            "sourceColumn": "CategoryDescription",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Estado_x0020_Compra",
+            "dataType": "string",
+            "sourceColumn": "Estado_x0020_Compra",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "IVA_x0020_incluido",
+            "dataType": "string",
+            "sourceColumn": "IVA_x0020_incluido",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Manager",
+            "dataType": "string",
+            "sourceColumn": "Manager",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Notas_x0020_de_x0020_compra",
+            "dataType": "string",
+            "sourceColumn": "Notas_x0020_de_x0020_compra",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Precio",
+            "dataType": "double",
+            "sourceColumn": "Precio",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Referencia",
+            "dataType": "string",
+            "sourceColumn": "Referencia",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Tipo_x0020_de_x0020_IVA",
+            "dataType": "string",
+            "sourceColumn": "Tipo_x0020_de_x0020_IVA",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Created",
+            "dataType": "dateTime",
+            "sourceColumn": "Created",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "Modified",
+            "dataType": "dateTime",
+            "sourceColumn": "Modified",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "Editor",
+            "dataType": "string",
+            "sourceColumn": "Editor",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Fecha_solicitud",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha_solicitud",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "Author",
+            "dataType": "string",
+            "sourceColumn": "Author",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "DNI",
+            "dataType": "string",
+            "sourceColumn": "DNI",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "type": "calculated",
+            "name": "Mes-ano",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "MONTH(FactCompras[Fecha_solicitud])&\"-\"&YEAR(FactCompras[Fecha_solicitud])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactCompras",
+            "dataView": "full",
+            "source": {
+              "query": " SELECT [dbo].[FactCompras].* FROM [dbo].[FactCompras] ",
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Sum compras",
+            "expression": "SUM((FactCompras[Precio]))",
+            "isHidden": true
+          },
+          {
+            "name": "Total Compras",
+            "expression": [
+              "",
+              "CALCULATE (",
+              "   [Sum compras],",
+              "    USERELATIONSHIP ( DimTiempo[mesAnio], FactCompras[Mes-ano] )",
+              ")"
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [dbo].[FactCompras].* FROM [dbo].[FactCompras] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "FactCompras"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "FactVentas",
+        "columns": [
+          {
+            "name": "anyo",
+            "dataType": "int64",
+            "sourceColumn": "anyo",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "mes",
+            "dataType": "int64",
+            "sourceColumn": "mes",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "idProyecto",
+            "dataType": "int64",
+            "sourceColumn": "idProyecto",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "importeFactura",
+            "dataType": "double",
+            "sourceColumn": "importeFactura",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "importeIncurrido",
+            "dataType": "double",
+            "sourceColumn": "importeIncurrido",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "ventasNuevas",
+            "dataType": "double",
+            "sourceColumn": "ventasNuevas",
+            "sourceProviderType": "Double"
+          },
+          {
+            "type": "calculated",
+            "name": "Mes-anio",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "FactVentas[mes]&\"-\"&FactVentas[anyo]"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Sales",
+            "dataView": "full",
+            "source": {
+              "query": " SELECT [dbo].[Sales].* FROM [dbo].[Sales] ",
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "suma ventas",
+            "expression": "SUM(FactVentas[ventasNuevas])",
+            "isHidden": true
+          },
+          {
+            "name": "Ventas",
+            "expression": [
+              "",
+              "CALCULATE (",
+              "   [suma ventas],",
+              "    USERELATIONSHIP ( DimTiempo[mesAnio], FactVentas[Mes-anio] )",
+              ")"
+            ]
+          },
+          {
+            "name": "suma factura",
+            "expression": "SUM(FactVentas[importeFactura])",
+            "isHidden": true
+          },
+          {
+            "name": "suma incurrido",
+            "expression": "SUM(FactVentas[importeIncurrido])",
+            "isHidden": true
+          },
+          {
+            "name": "Facturas",
+            "expression": [
+              "",
+              "CALCULATE (",
+              "   [suma factura],",
+              "    USERELATIONSHIP ( DimTiempo[mesAnio], FactCompras[Mes-ano] )",
+              ")"
+            ]
+          },
+          {
+            "name": "Incurrido",
+            "expression": [
+              "",
+              "CALCULATE (",
+              "   [suma incurrido],",
+              "    USERELATIONSHIP ( DimTiempo[mesAnio], FactCompras[Mes-ano] )",
+              ")"
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [dbo].[Sales].* FROM [dbo].[Sales] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Sales"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "FactGastos",
+        "columns": [
+          {
+            "name": "ID",
+            "dataType": "int64",
+            "sourceColumn": "ID",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Proyectos",
+            "dataType": "string",
+            "sourceColumn": "Proyectos",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Total",
+            "dataType": "double",
+            "sourceColumn": "Total",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Empleado",
+            "dataType": "string",
+            "sourceColumn": "Empleado",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Email",
+            "dataType": "string",
+            "sourceColumn": "Email",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "Billete",
+            "dataType": "double",
+            "sourceColumn": "Billete",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Taxi",
+            "dataType": "double",
+            "sourceColumn": "Taxi",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Gasolina",
+            "dataType": "double",
+            "sourceColumn": "Gasolina",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Peaje",
+            "dataType": "double",
+            "sourceColumn": "Peaje",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Parking",
+            "dataType": "double",
+            "sourceColumn": "Parking",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Km",
+            "dataType": "double",
+            "sourceColumn": "Km",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Alojamiento",
+            "dataType": "double",
+            "sourceColumn": "Alojamiento",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Dietas",
+            "dataType": "double",
+            "sourceColumn": "Dietas",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "GastosO",
+            "dataType": "double",
+            "sourceColumn": "GastosO",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "GastosR",
+            "dataType": "double",
+            "sourceColumn": "GastosR",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "TPublico",
+            "dataType": "double",
+            "sourceColumn": "TPublico",
+            "sourceProviderType": "Single"
+          },
+          {
+            "name": "Estados",
+            "dataType": "string",
+            "sourceColumn": "Estados",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "OrigenG",
+            "dataType": "string",
+            "sourceColumn": "OrigenG",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "DestinoG",
+            "dataType": "string",
+            "sourceColumn": "DestinoG",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Anotaciones",
+            "dataType": "string",
+            "sourceColumn": "Anotaciones",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Abonado",
+            "dataType": "boolean",
+            "sourceColumn": "Abonado",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "Boolean"
+          },
+          {
+            "name": "Tarjeta",
+            "dataType": "boolean",
+            "sourceColumn": "Tarjeta",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "Boolean"
+          },
+          {
+            "name": "Modified",
+            "dataType": "dateTime",
+            "sourceColumn": "Modified",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "Editor",
+            "dataType": "string",
+            "sourceColumn": "Editor",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "idFilaProyecto",
+            "dataType": "int64",
+            "sourceColumn": "idFilaProyecto",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DNI",
+            "dataType": "string",
+            "sourceColumn": "DNI",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Factura",
+            "dataType": "string",
+            "sourceColumn": "Factura",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "type": "calculated",
+            "name": "Mes-anio",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "MONTH(FactGastos[Fecha])&\"-\"&YEAR(FactGastos[Fecha])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactGastos",
+            "dataView": "full",
+            "source": {
+              "query": " SELECT [dbo].[FactGastos].* FROM [dbo].[FactGastos] ",
+              "dataSource": "SqlServer BOSONITBI gcv 2"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Gastos",
+            "expression": "SUM(FactGastos[Total])"
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [dbo].[FactGastos].* FROM [dbo].[FactGastos] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "FactGastos"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "98e9d72f-d4d2-4561-9e66-87aa08379345",
+        "fromTable": "FactCompras",
+        "fromColumn": "Mes-ano",
+        "toTable": "DimTiempo",
+        "toColumn": "mesAnio",
+        "isActive": false
+      },
+      {
+        "name": "1046d218-70a1-488a-83c6-fd7a16477a33",
+        "fromTable": "FactVentas",
+        "fromColumn": "Mes-anio",
+        "toTable": "DimTiempo",
+        "toColumn": "mesAnio",
+        "isActive": false
+      },
+      {
+        "name": "14c4eb08-5326-46b8-805a-7b9a7509a291",
+        "fromTable": "FactCompras",
+        "fromColumn": "DNI",
+        "toTable": "DimEmpleado",
+        "toColumn": "DNI"
+      },
+      {
+        "name": "e2511a49-1134-4e18-b2b1-9e6a0cb4dc58",
+        "fromTable": "FactGastos",
+        "fromColumn": "DNI",
+        "toTable": "DimEmpleado",
+        "toColumn": "DNI"
+      },
+      {
+        "name": "20905150-66be-4c6c-a783-c8416c3c4751",
+        "fromTable": "FactGastos",
+        "fromColumn": "Mes-anio",
+        "toTable": "DimTiempo",
+        "toColumn": "mesAnio"
+      },
+      {
+        "name": "dc427b24-8495-41fb-bacb-257e157317eb",
+        "fromTable": "FactVentas",
+        "fromColumn": "idProyecto",
+        "toTable": "DimProyectos",
+        "toColumn": "id"
+      },
+      {
+        "name": "06a20a5e-4737-4808-a26d-f89b0185bcac",
+        "fromTable": "FactGastos",
+        "fromColumn": "idFilaProyecto",
+        "toTable": "DimProyectos",
+        "toColumn": "id"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  }
+}

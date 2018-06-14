@@ -1,0 +1,2170 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/29/2018 8:46:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WORKSTATION"
+  DTS:CreatorName="BOSONITDEV\bosonit"
+  DTS:DTSID="{A7A81B0D-C332-476F-B4F9-0F71F9679880}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3008.28"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CargaGastos"
+  DTS:PackageType="5"
+  DTS:VersionBuild="85"
+  DTS:VersionGUID="{32158393-F15D-4EFE-A6D2-BF6A78CC8528}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.12.1.145.intrahib.bosonitReadOnly]"
+      DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=6.10.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
+      DTS:DTSID="{6D784C99-72AB-48EC-86D4-730D8322FB7C}"
+      DTS:ObjectName="10.12.1.145.intrahib.bosonitReadOnly">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="server=10.12.1.145;user id=bosonitReadOnly;port=3306;persistsecurityinfo=True;logging=False;protocol=Socket;database=intrahib;">
+          <DTS:Password
+            DTS:Name="password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAjYTNUp/iTEq4C1Frw5zGRQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABRMlXCI8711DL3yH/jrUGyAAAAAASAAACgAAAAEAAAACa8l86VSnogilxwC2qNrncoAAAAPs/b8YIhUYxkfKIb7REiUR5CfRpj8kMaXT8vxlV3O1632YfreVKJ6xQAAACnDpndPbAyt4g2gK9MgrBnlxjVYw</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.gcv]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B3DEB88A-73E4-4D93-858B-3A808F0ABD8B}"
+      DTS:ObjectName="BOSONITBI.gcv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=gcv;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8DB04695-9E62-4807-BE73-9396FA2C3857}"
+      DTS:ObjectName="BOSONITBI.INTEGRACION_SHAREPOINT_SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=INTEGRACION_SHAREPOINT_SQL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Borrar tabla gastos para cargar actualizar registros"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{370199A5-0D74-493D-A92C-F9ACD11BA584}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar tabla gastos para cargar actualizar registros"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3DEB88A-73E4-4D93-858B-3A808F0ABD8B}"
+          SQLTask:SqlStatementSource="truncate table [gcv].[dbo].[FactGastos]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Cargar gastos"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DB618478-9B7D-44D6-8E9D-9684E04B7E49}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cargar gastos"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Cargar gastos\Carga gastos"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga gastos"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactGastos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar gastos\Carga gastos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Total]"
+                      cachedDataType="r4"
+                      cachedName="Total"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Total]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Total]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Empleado]"
+                      cachedDataType="nText"
+                      cachedName="Empleado"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Empleado]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Empleado]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Email]"
+                      cachedDataType="nText"
+                      cachedName="Email"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Email]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Billete]"
+                      cachedDataType="r4"
+                      cachedName="Billete"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Billete]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Billete]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Taxi]"
+                      cachedDataType="r4"
+                      cachedName="Taxi"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Taxi]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Taxi]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Gasolina]"
+                      cachedDataType="r4"
+                      cachedName="Gasolina"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Gasolina]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Gasolina]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Peaje]"
+                      cachedDataType="r4"
+                      cachedName="Peaje"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Peaje]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Peaje]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Parking]"
+                      cachedDataType="r4"
+                      cachedName="Parking"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Parking]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Parking]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Km]"
+                      cachedDataType="r4"
+                      cachedName="Km"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Km]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Km]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Alojamiento]"
+                      cachedDataType="r4"
+                      cachedName="Alojamiento"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Alojamiento]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Alojamiento]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Dietas]"
+                      cachedDataType="r4"
+                      cachedName="Dietas"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Dietas]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Dietas]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[GastosO]"
+                      cachedDataType="r4"
+                      cachedName="GastosO"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[GastosO]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosO]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[GastosR]"
+                      cachedDataType="r4"
+                      cachedName="GastosR"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[GastosR]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosR]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[TPublico]"
+                      cachedDataType="r4"
+                      cachedName="TPublico"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[TPublico]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[TPublico]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Estados]"
+                      cachedDataType="nText"
+                      cachedName="Estados"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Estados]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Estados]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[OrigenG]"
+                      cachedDataType="nText"
+                      cachedName="OrigenG"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[OrigenG]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[OrigenG]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[DestinoG]"
+                      cachedDataType="nText"
+                      cachedName="DestinoG"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[DestinoG]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[DestinoG]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Anotaciones]"
+                      cachedDataType="nText"
+                      cachedName="Anotaciones"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Anotaciones]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Anotaciones]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Abonado]"
+                      cachedDataType="bool"
+                      cachedName="Abonado"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Abonado]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Abonado]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Tarjeta]"
+                      cachedDataType="bool"
+                      cachedName="Tarjeta"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Tarjeta]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Tarjeta]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Factura]"
+                      cachedDataType="nText"
+                      cachedName="Factura"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Factura]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Factura]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[DNI]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DNI"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      lineageId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output].Columns[DNI]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[ProyectosCast]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="ProyectosCast"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Proyectos]"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[ProyectosCast]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[FechaDate]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaDate"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Fecha]"
+                      lineageId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output].Columns[FechaDate]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[Copy of Fecha]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of Fecha"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Modified]"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].Columns[idFilaPR]"
+                      cachedDataType="i4"
+                      cachedName="idFilaPR"
+                      externalMetadataColumnId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[idFilaProyecto]"
+                      lineageId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output].Columns[idFilaPR]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Proyectos]"
+                      dataType="nText"
+                      name="Proyectos" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Total]"
+                      dataType="r4"
+                      name="Total" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Empleado]"
+                      dataType="nText"
+                      name="Empleado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="nText"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Fecha]"
+                      dataType="dbDate"
+                      name="Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Billete]"
+                      dataType="r4"
+                      name="Billete" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Taxi]"
+                      dataType="r4"
+                      name="Taxi" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Gasolina]"
+                      dataType="r4"
+                      name="Gasolina" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Peaje]"
+                      dataType="r4"
+                      name="Peaje" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Parking]"
+                      dataType="r4"
+                      name="Parking" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Km]"
+                      dataType="r4"
+                      name="Km" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Alojamiento]"
+                      dataType="r4"
+                      name="Alojamiento" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Dietas]"
+                      dataType="r4"
+                      name="Dietas" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[GastosO]"
+                      dataType="r4"
+                      name="GastosO" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[GastosR]"
+                      dataType="r4"
+                      name="GastosR" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[TPublico]"
+                      dataType="r4"
+                      name="TPublico" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Estados]"
+                      dataType="nText"
+                      name="Estados" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[OrigenG]"
+                      dataType="nText"
+                      name="OrigenG" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[DestinoG]"
+                      dataType="nText"
+                      name="DestinoG" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Anotaciones]"
+                      dataType="nText"
+                      name="Anotaciones" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Abonado]"
+                      dataType="bool"
+                      name="Abonado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Tarjeta]"
+                      dataType="bool"
+                      name="Tarjeta" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Modified]"
+                      dataType="dbTimeStamp"
+                      name="Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Editor]"
+                      dataType="nText"
+                      name="Editor" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[idFilaProyecto]"
+                      dataType="i4"
+                      name="idFilaProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      dataType="wstr"
+                      length="255"
+                      name="DNI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input].ExternalColumns[Factura]"
+                      dataType="nText"
+                      name="Factura" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Carga gastos.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Carga gastos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Carga gastos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Carga gastos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Comprueba repetidos"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Comprueba repetidos"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FactGastos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FactGastos]) [refTable]
+where [refTable].[Fecha] = ? and [refTable].[idFilaProyecto] = ? and [refTable].[DNI] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Proyectos" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Total" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Empleado" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Billete" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Taxi" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Gasolina" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Peaje" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Parking" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Km" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Alojamiento" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Dietas" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="GastosO" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="GastosR" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TPublico" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Estados" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="OrigenG" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DestinoG" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Anotaciones" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Abonado" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Tarjeta" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Modified" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Editor" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idFilaProyecto" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Factura" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output].Columns[FechaDate]};#{Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output].Columns[idFilaPR]};#{Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output].Columns[DNI]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar gastos\Comprueba repetidos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input].Columns[FechaDate]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaDate"
+                      lineageId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output].Columns[FechaDate]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Fecha</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input].Columns[idFilaPR]"
+                      cachedDataType="i4"
+                      cachedName="idFilaPR"
+                      lineageId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output].Columns[idFilaPR]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">idFilaProyecto</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input].Columns[DNI]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DNI"
+                      lineageId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output].Columns[DNI]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DNI</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Converisón datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Converisón datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input].Columns[Proyectos]"
+                      cachedDataType="nText"
+                      cachedName="Proyectos"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Proyectos]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input].Columns[Fecha]"
+                      cachedDataType="nText"
+                      cachedName="Fecha"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Fecha]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input].Columns[Empleado]"
+                      cachedDataType="nText"
+                      cachedName="Empleado"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Empleado]" />
+                    <inputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input].Columns[Email]"
+                      cachedDataType="nText"
+                      cachedName="Email"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Email]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      length="50"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]"
+                      name="Copy of Fecha"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Fecha]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[ProyectosCast]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1000"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[ProyectosCast]"
+                      name="ProyectosCast"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Proyectos]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmpleadoCast]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmpleadoCast]"
+                      name="EmpleadoCast"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Empleado]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmailCast]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmailCast]"
+                      name="EmailCast"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Email]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Extrae id proyecto"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Extrae id proyecto"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProyectos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProyectos]) [refTable]
+where [refTable].[idProyecto] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idProyecto" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreProyecto" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreTercero" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidCliente" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidOrigen" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidEstado" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidTipoAct" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidZonaTer" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidUnidad" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidComercial" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidDireccion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidDelegacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidEmpresa" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="importeProyecto" dataType="DT_NUMERIC" length="0" precision="15" scale="2" codePage="0"/&gt;&lt;referenceColumn name="probExito" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaIni" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaPresenta" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaAceptacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaCierre" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaOportunidad" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="estado" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="tipoActividad" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="zonaTerritorial" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="nombreUnidad" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="responsableComercial" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="direccionComercial" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="delegacion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="empresa" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fkidFacturacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="responsableFacturacion" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="esRecurrente" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="facturable" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[ProyectosCast]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar gastos\Extrae id proyecto.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input].Columns[ProyectosCast]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="ProyectosCast"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[ProyectosCast]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">idProyecto</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output].Columns[idFilaPR]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output].Columns[idFilaPR]"
+                      name="idFilaPR"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Formateo de fecha a española"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Formateo de fecha a española"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Formateo de fecha a española.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Formateo de fecha a española.Inputs[Derived Column Input].Columns[Copy of Fecha]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of Fecha"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Cargar gastos\Formateo de fecha a española.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output].Columns[FechaDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output].Columns[FechaDate]"
+                      name="FechaDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)([SUBSTRING](#{Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]},7,4) + "-" + [SUBSTRING](#{Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]},4,2) + "-" + [SUBSTRING](#{Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[Copy of Fecha]},1,2))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)(SUBSTRING([Copy of Fecha],7,4) + "-" + SUBSTRING([Copy of Fecha],4,2) + "-" + SUBSTRING([Copy of Fecha],1,2))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Cargar gastos\Formateo de fecha a española.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Gastos Sharepoint"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Gastos Sharepoint"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[gastos_L_Gastos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT *
+FROM [INTEGRACION_SHAREPOINT_SQL].[dbo].[gastos_L_Gastos]
+where Estados='Pending' or Estados='Approved'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar gastos\Gastos Sharepoint.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Proyectos]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Proyectos]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Proyectos]"
+                      name="Proyectos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Total]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Total]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Total]"
+                      name="Total"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Empleado]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Empleado]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Empleado]"
+                      name="Empleado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Email]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Email]"
+                      name="Email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      name="Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Billete]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Billete]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Billete]"
+                      name="Billete"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Taxi]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Taxi]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Taxi]"
+                      name="Taxi"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Gasolina]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Gasolina]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Gasolina]"
+                      name="Gasolina"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Peaje]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Peaje]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Peaje]"
+                      name="Peaje"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Parking]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Parking]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Parking]"
+                      name="Parking"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Km]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Km]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Km]"
+                      name="Km"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Alojamiento]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Alojamiento]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Alojamiento]"
+                      name="Alojamiento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Dietas]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Dietas]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Dietas]"
+                      name="Dietas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosO]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[GastosO]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosO]"
+                      name="GastosO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosR]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[GastosR]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[GastosR]"
+                      name="GastosR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[TPublico]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[TPublico]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[TPublico]"
+                      name="TPublico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Estados]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Estados]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Estados]"
+                      name="Estados"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[OrigenG]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[OrigenG]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[OrigenG]"
+                      name="OrigenG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[DestinoG]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[DestinoG]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[DestinoG]"
+                      name="DestinoG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Anotaciones]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Anotaciones]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Anotaciones]"
+                      name="Anotaciones"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Tarjeta]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Tarjeta]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Tarjeta]"
+                      name="Tarjeta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Factura]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Factura]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Factura]"
+                      name="Factura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[TitularT]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[TitularT]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[TitularT]"
+                      name="TitularT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Modified]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Modified]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Modified]"
+                      name="Modified"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Editor]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Editor]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Editor]"
+                      name="Editor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Abonado]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Abonado]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Abonado]"
+                      name="Abonado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Created]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Created]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Created]"
+                      name="Created"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Author]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Author]"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].Columns[Author]"
+                      name="Author"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Proyectos]"
+                      dataType="nText"
+                      name="Proyectos" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Total]"
+                      dataType="r4"
+                      name="Total" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Empleado]"
+                      dataType="nText"
+                      name="Empleado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      dataType="nText"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      dataType="nText"
+                      name="Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Billete]"
+                      dataType="r4"
+                      name="Billete" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Taxi]"
+                      dataType="r4"
+                      name="Taxi" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Gasolina]"
+                      dataType="r4"
+                      name="Gasolina" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Peaje]"
+                      dataType="r4"
+                      name="Peaje" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Parking]"
+                      dataType="r4"
+                      name="Parking" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Km]"
+                      dataType="r4"
+                      name="Km" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Alojamiento]"
+                      dataType="r4"
+                      name="Alojamiento" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Dietas]"
+                      dataType="r4"
+                      name="Dietas" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[GastosO]"
+                      dataType="r4"
+                      name="GastosO" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[GastosR]"
+                      dataType="r4"
+                      name="GastosR" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[TPublico]"
+                      dataType="r4"
+                      name="TPublico" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Estados]"
+                      dataType="nText"
+                      name="Estados" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[OrigenG]"
+                      dataType="nText"
+                      name="OrigenG" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[DestinoG]"
+                      dataType="nText"
+                      name="DestinoG" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Anotaciones]"
+                      dataType="nText"
+                      name="Anotaciones" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Tarjeta]"
+                      dataType="bool"
+                      name="Tarjeta" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Factura]"
+                      dataType="nText"
+                      name="Factura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[TitularT]"
+                      dataType="nText"
+                      name="TitularT" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Modified]"
+                      dataType="dbTimeStamp"
+                      name="Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Editor]"
+                      dataType="nText"
+                      name="Editor" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Abonado]"
+                      dataType="bool"
+                      name="Abonado" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Created]"
+                      dataType="dbTimeStamp"
+                      name="Created" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Author]"
+                      dataType="nText"
+                      name="Author" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Proyectos]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Proyectos]"
+                      name="Proyectos" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Total]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Total]"
+                      name="Total" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Empleado]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Empleado]"
+                      name="Empleado" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      name="Email" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      name="Fecha" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Billete]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Billete]"
+                      name="Billete" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Taxi]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Taxi]"
+                      name="Taxi" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Gasolina]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Gasolina]"
+                      name="Gasolina" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Peaje]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Peaje]"
+                      name="Peaje" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Parking]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Parking]"
+                      name="Parking" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Km]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Km]"
+                      name="Km" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Alojamiento]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Alojamiento]"
+                      name="Alojamiento" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Dietas]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Dietas]"
+                      name="Dietas" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[GastosO]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[GastosO]"
+                      name="GastosO" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[GastosR]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[GastosR]"
+                      name="GastosR" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[TPublico]"
+                      dataType="r4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[TPublico]"
+                      name="TPublico" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Estados]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Estados]"
+                      name="Estados" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[OrigenG]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[OrigenG]"
+                      name="OrigenG" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[DestinoG]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[DestinoG]"
+                      name="DestinoG" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Anotaciones]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Anotaciones]"
+                      name="Anotaciones" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Abonado]"
+                      dataType="bool"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Abonado]"
+                      name="Abonado" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Factura]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Factura]"
+                      name="Factura" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Tarjeta]"
+                      dataType="bool"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Tarjeta]"
+                      name="Tarjeta" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[TitularT]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[TitularT]"
+                      name="TitularT" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Created]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Created]"
+                      name="Created" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Author]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Author]"
+                      name="Author" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Modified]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Modified]"
+                      name="Modified" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Editor]"
+                      dataType="nText"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[Editor]"
+                      name="Editor" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar gastos\Obtiene DNI"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Obtiene DNI"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmpleado]) [refTable]
+where [refTable].[CORREO] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NOMBRE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RESPONSABLE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ENTRADA" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CORREO" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VACACIONES" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ACTIVO" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmailCast]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar gastos\Obtiene DNI.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input].Columns[EmailCast]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="EmailCast"
+                      lineageId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output].Columns[EmailCast]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CORREO</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output].Columns[DNI]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output].Columns[DNI]"
+                      name="DNI"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DNI</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Cargar gastos.Paths[Data Conversion Output]"
+              endId="Package\Cargar gastos\Formateo de fecha a española.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Cargar gastos\Converisón datos.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Cargar gastos.Paths[Derived Column Output]"
+              endId="Package\Cargar gastos\Extrae id proyecto.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Cargar gastos\Formateo de fecha a española.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Cargar gastos.Paths[Lookup Match Output]"
+              endId="Package\Cargar gastos\Comprueba repetidos.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Cargar gastos\Obtiene DNI.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Cargar gastos.Paths[Lookup Match Output1]"
+              endId="Package\Cargar gastos\Obtiene DNI.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Cargar gastos\Extrae id proyecto.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Cargar gastos.Paths[Lookup No Match Output]"
+              endId="Package\Cargar gastos\Carga gastos.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Cargar gastos\Comprueba repetidos.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Cargar gastos.Paths[OLE DB Source Output]"
+              endId="Package\Cargar gastos\Converisón datos.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Cargar gastos\Gastos Sharepoint.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D5458313-DE6F-4146-A9ED-6ECA2A2288BF}"
+      DTS:From="Package\Borrar tabla gastos para cargar actualizar registros"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Cargar gastos" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="317,42"
+          Id="Package\Borrar tabla gastos para cargar actualizar registros"
+          TopLeft="269.785713643444,57.3352941433864" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Cargar gastos"
+          TopLeft="353.142858388473,170.352941433864" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="426.464286015958,98.9352941433864">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71.4176472904773"
+              Start="0,0"
+              End="0,63.9176472904773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.9176472904773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Cargar gastos">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Cargar gastos\Formateo de fecha a española"
+          TopLeft="41.185713847803,153.788235431394" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Cargar gastos\Obtiene DNI"
+          TopLeft="82.9,311" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Cargar gastos\Gastos Sharepoint"
+          TopLeft="72.428575710375,0.164705127333299" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Cargar gastos\Comprueba repetidos"
+          TopLeft="311.4,310" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Cargar gastos\Extrae id proyecto"
+          TopLeft="62.9,223" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Cargar gastos\Carga gastos"
+          TopLeft="573.571428921758,313.058823572311" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Cargar gastos\Converisón datos"
+          TopLeft="73.971428104323,72.7411767194015" />
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[OLE DB Source Output]"
+          TopLeft="154.200001907349,42.1647051273333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.5764715920682"
+              Start="0,0"
+              End="0,23.0764715920682">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.0764715920682" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[Lookup No Match Output]"
+          TopLeft="490.4,332.529411786155">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="83.1714289217581,0"
+              Start="0,0"
+              End="75.6714289217581,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="75.6714289217581,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.970672257871,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[Lookup Match Output]"
+          TopLeft="219.9,331.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="91.5,0"
+              Start="0,0"
+              End="84,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-6.19138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[Derived Column Output]"
+          TopLeft="148.542856923901,195.788235431394">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.211764568606"
+              Start="0,0"
+              End="0,19.711764568606">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.711764568606" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[Data Conversion Output]"
+          TopLeft="152.578570976063,114.741176719401">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.0470587119925"
+              Start="0,0"
+              End="0,31.5470587119925">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5470587119925" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar gastos.Paths[Lookup Match Output1]"
+          TopLeft="148.4,265">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,13.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar gastos\Obtiene DNI">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmpleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar gastos\Gastos Sharepoint">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar gastos\Comprueba repetidos">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[FactGastos]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar gastos\Extrae id proyecto">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProyectos]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar gastos\Carga gastos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

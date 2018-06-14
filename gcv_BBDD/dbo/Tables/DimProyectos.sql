@@ -1,0 +1,38 @@
+﻿CREATE TABLE [dbo].[DimProyectos] (
+    [id]                     INT             NOT NULL,
+    [idProyecto]             NVARCHAR (20)   NULL,
+    [nombreProyecto]         NVARCHAR (150)  NULL,
+    [nombreTercero]          NVARCHAR (200)  NULL,
+    [fkidCliente]            INT             NULL,
+    [fkidOrigen]             NVARCHAR (100)  NULL,
+    [fkidEstado]             INT             NULL,
+    [fkidTipoAct]            INT             NULL,
+    [fkidZonaTer]            INT             NULL,
+    [fkidUnidad]             INT             NULL,
+    [fkidComercial]          INT             NULL,
+    [fkidDireccion]          INT             NULL,
+    [fkidDelegacion]         INT             NULL,
+    [fkidEmpresa]            INT             NULL,
+    [importeProyecto]        NUMERIC (15, 2) NULL,
+    [probExito]              INT             NULL,
+    [fechaIni]               DATETIME        NULL,
+    [fechaPresenta]          DATETIME        NULL,
+    [fechaAceptacion]        DATETIME        NULL,
+    [fechaCierre]            DATETIME        NULL,
+    [fechaOportunidad]       DATETIME        NULL,
+    [estado]                 NVARCHAR (200)  NULL,
+    [tipoActividad]          NVARCHAR (50)   NULL,
+    [zonaTerritorial]        NVARCHAR (100)  NULL,
+    [nombreUnidad]           NVARCHAR (100)  NULL,
+    [responsableComercial]   NVARCHAR (100)  NULL,
+    [direccionComercial]     NVARCHAR (50)   NULL,
+    [delegacion]             NVARCHAR (50)   NULL,
+    [empresa]                NVARCHAR (50)   NULL,
+    [fkidFacturacion]        INT             NULL,
+    [responsableFacturacion] NCHAR (100)     NULL,
+    [facturable]             NVARCHAR (10)   NULL,
+    CONSTRAINT [PK_DimProyectos] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+
+

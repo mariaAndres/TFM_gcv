@@ -1,0 +1,1363 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/13/2018 5:18:56 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WORKSTATION"
+  DTS:CreatorName="BOSONITDEV\BOSONIT"
+  DTS:DTSID="{627E43EB-5C43-4A82-B9CE-F8D34DA8F328}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3008.28"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CargaCompras"
+  DTS:PackageType="5"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{F499307D-F2B8-4B1B-9346-6D10C8482B59}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.gcv]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DBE101AE-2B41-4EBE-8CA8-D95D5331B9EF}"
+      DTS:ObjectName="BOSONITBI.gcv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=gcv;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4184EA06-DB0A-4914-AAF4-674A5725C045}"
+      DTS:ObjectName="BOSONITBI.INTEGRACION_SHAREPOINT_SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=INTEGRACION_SHAREPOINT_SQL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.unhiberseDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6D0A47E0-A41E-454A-BA50-3AFD2146FB31}"
+      DTS:ObjectName="BOSONITBI.unhiberseDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=unhiberseDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Borrar tabla compras para cargar registros"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{fc28de88-d32b-4901-a13f-26c3ef3cb749}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borrar tabla compras para cargar registros"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DBE101AE-2B41-4EBE-8CA8-D95D5331B9EF}"
+          SQLTask:SqlStatementSource="truncate table [gcv].[dbo].[FactCompras]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga compras"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F93BA5B3-D165-4F0C-BAA1-B4AF46F12C60}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga compras"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga compras\Carga Compras"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga Compras"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactCompras]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga compras\Carga Compras.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Artículo_x002f_Servicio]"
+                      cachedDataType="nText"
+                      cachedName="Artículo_x002f_Servicio"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Artículo_x002f_Servicio]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Artículo_x002f_Servicio]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[CategoryDescription]"
+                      cachedDataType="nText"
+                      cachedName="CategoryDescription"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[CategoryDescription]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[CategoryDescription]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Estado_x0020_Compra]"
+                      cachedDataType="nText"
+                      cachedName="Estado_x0020_Compra"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Estado_x0020_Compra]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Estado_x0020_Compra]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[IVA_x0020_incluido]"
+                      cachedDataType="nText"
+                      cachedName="IVA_x0020_incluido"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[IVA_x0020_incluido]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[IVA_x0020_incluido]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Notas_x0020_de_x0020_compra]"
+                      cachedDataType="nText"
+                      cachedName="Notas_x0020_de_x0020_compra"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Notas_x0020_de_x0020_compra]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Notas_x0020_de_x0020_compra]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Precio]"
+                      cachedDataType="r4"
+                      cachedName="Precio"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Precio]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Precio]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Referencia]"
+                      cachedDataType="nText"
+                      cachedName="Referencia"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Referencia]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Referencia]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Tipo_x0020_de_x0020_IVA]"
+                      cachedDataType="nText"
+                      cachedName="Tipo_x0020_de_x0020_IVA"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Tipo_x0020_de_x0020_IVA]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Tipo_x0020_de_x0020_IVA]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Created]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Created"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Created]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Created]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[DNI]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DNI"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      lineageId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Match Output].Columns[DNI]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Copy of Author]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of Author"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Author]"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Author]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].Columns[Copy of Fecha_x0020_de_x0020_solicitud]"
+                      cachedDataType="dbDate"
+                      cachedName="Copy of Fecha_x0020_de_x0020_solicitud"
+                      externalMetadataColumnId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_solicitud]"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Fecha_x0020_de_x0020_solicitud]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Artículo_x002f_Servicio]"
+                      dataType="nText"
+                      name="Artículo_x002f_Servicio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[CategoryDescription]"
+                      dataType="nText"
+                      name="CategoryDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Estado_x0020_Compra]"
+                      dataType="nText"
+                      name="Estado_x0020_Compra" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[IVA_x0020_incluido]"
+                      dataType="nText"
+                      name="IVA_x0020_incluido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Manager]"
+                      dataType="nText"
+                      name="Manager" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Notas_x0020_de_x0020_compra]"
+                      dataType="nText"
+                      name="Notas_x0020_de_x0020_compra" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Precio]"
+                      dataType="r4"
+                      name="Precio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Referencia]"
+                      dataType="nText"
+                      name="Referencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Tipo_x0020_de_x0020_IVA]"
+                      dataType="nText"
+                      name="Tipo_x0020_de_x0020_IVA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Created]"
+                      dataType="dbTimeStamp"
+                      name="Created" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Modified]"
+                      dataType="dbTimeStamp"
+                      name="Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Editor]"
+                      dataType="nText"
+                      name="Editor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_solicitud]"
+                      dataType="dbDate"
+                      name="Fecha_solicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[Author]"
+                      dataType="wstr"
+                      length="50"
+                      name="Author" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      dataType="wstr"
+                      length="255"
+                      name="DNI" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga compras\Carga Compras.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Carga Compras.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Carga Compras.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga Compras.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Carga Compras.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga compras\Carga de sharepoint"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Carga de sharepoint"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT *
+  FROM [INTEGRACION_SHAREPOINT_SQL].[dbo].[compras_L_Compras]
+  where Estado_x0020_Compra&lt;&gt;'Rechazada'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga compras\Carga de sharepoint.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Artículo_x002f_Servicio]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Artículo_x002f_Servicio]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Artículo_x002f_Servicio]"
+                      name="Artículo_x002f_Servicio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[CategoryDescription]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[CategoryDescription]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[CategoryDescription]"
+                      name="CategoryDescription"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Estado_x0020_Compra]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Estado_x0020_Compra]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Estado_x0020_Compra]"
+                      name="Estado_x0020_Compra"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      name="Fecha_x0020_1_x00ba__x0020_aprobación"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_compra]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_compra]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_compra]"
+                      name="Fecha_x0020_compra"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_de_x0020_solicitud]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_de_x0020_solicitud]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_de_x0020_solicitud]"
+                      name="Fecha_x0020_de_x0020_solicitud"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_recepción]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_recepción]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_recepción]"
+                      name="Fecha_x0020_recepción"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[IVA_x0020_incluido]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[IVA_x0020_incluido]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[IVA_x0020_incluido]"
+                      name="IVA_x0020_incluido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Notas_x0020_de_x0020_compra]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Notas_x0020_de_x0020_compra]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Notas_x0020_de_x0020_compra]"
+                      name="Notas_x0020_de_x0020_compra"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Precio]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Precio]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Precio]"
+                      name="Precio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Referencia]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Referencia]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Referencia]"
+                      name="Referencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Tipo_x0020_de_x0020_IVA]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Tipo_x0020_de_x0020_IVA]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Tipo_x0020_de_x0020_IVA]"
+                      name="Tipo_x0020_de_x0020_IVA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Created]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Created]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Created]"
+                      name="Created"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Author]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Author]"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Author]"
+                      name="Author"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Artículo_x002f_Servicio]"
+                      dataType="nText"
+                      name="Artículo_x002f_Servicio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[CategoryDescription]"
+                      dataType="nText"
+                      name="CategoryDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Estado_x0020_Compra]"
+                      dataType="nText"
+                      name="Estado_x0020_Compra" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_x0020_1_x00ba__x0020_aprobación" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_compra]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_x0020_compra" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_de_x0020_solicitud]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_x0020_de_x0020_solicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Fecha_x0020_recepción]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_x0020_recepción" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[IVA_x0020_incluido]"
+                      dataType="nText"
+                      name="IVA_x0020_incluido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Notas_x0020_de_x0020_compra]"
+                      dataType="nText"
+                      name="Notas_x0020_de_x0020_compra" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Precio]"
+                      dataType="r4"
+                      name="Precio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Referencia]"
+                      dataType="nText"
+                      name="Referencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Tipo_x0020_de_x0020_IVA]"
+                      dataType="nText"
+                      name="Tipo_x0020_de_x0020_IVA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Created]"
+                      dataType="dbTimeStamp"
+                      name="Created" />
+                    <externalMetadataColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].ExternalColumns[Author]"
+                      dataType="nText"
+                      name="Author" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Artículo_x002f_Servicio]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Artículo_x002f_Servicio]"
+                      name="Artículo_x002f_Servicio" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[CategoryDescription]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[CategoryDescription]"
+                      name="CategoryDescription" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Estado_x0020_Compra]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Estado_x0020_Compra]"
+                      name="Estado_x0020_Compra" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_1_x00ba__x0020_aprobación]"
+                      name="Fecha_x0020_1_x00ba__x0020_aprobación" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_compra]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_compra]"
+                      name="Fecha_x0020_compra" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_de_x0020_solicitud]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_de_x0020_solicitud]"
+                      name="Fecha_x0020_de_x0020_solicitud" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_recepción]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Fecha_x0020_recepción]"
+                      name="Fecha_x0020_recepción" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[IVA_x0020_incluido]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[IVA_x0020_incluido]"
+                      name="IVA_x0020_incluido" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Notas_x0020_de_x0020_compra]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Notas_x0020_de_x0020_compra]"
+                      name="Notas_x0020_de_x0020_compra" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Precio]"
+                      dataType="r4"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Precio]"
+                      name="Precio" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Referencia]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Referencia]"
+                      name="Referencia" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Tipo_x0020_de_x0020_IVA]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Tipo_x0020_de_x0020_IVA]"
+                      name="Tipo_x0020_de_x0020_IVA" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Created]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Created]"
+                      name="Created" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Author]"
+                      dataType="nText"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[Author]"
+                      name="Author" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga compras\Comprueba repetidos"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Comprueba repetidos"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FactCompras]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FactCompras]) [refTable]
+where [refTable].[ID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Artículo_x002f_Servicio" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CategoryDescription" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Estado_x0020_Compra" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IVA_x0020_incluido" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Manager" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Notas_x0020_de_x0020_compra" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Precio" dataType="DT_R4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Referencia" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Tipo_x0020_de_x0020_IVA" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Created" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Modified" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Editor" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_solicitud" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Author" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[ID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga compras\Comprueba repetidos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga compras\Conversion Fecha y autor"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Conversion Fecha y autor"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input].Columns[Fecha_x0020_de_x0020_solicitud]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_x0020_de_x0020_solicitud"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_de_x0020_solicitud]" />
+                    <inputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input].Columns[Author]"
+                      cachedDataType="nText"
+                      cachedName="Author"
+                      lineageId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Author]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Fecha_x0020_de_x0020_solicitud]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Fecha_x0020_de_x0020_solicitud]"
+                      name="Copy of Fecha_x0020_de_x0020_solicitud"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Fecha_x0020_de_x0020_solicitud]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Author]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Author]"
+                      name="Copy of Author"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output].Columns[Author]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga compras\Obtiene dni empleado"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Obtiene dni empleado"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmpleado]) [refTable]
+where [refTable].[CORREO] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NOMBRE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RESPONSABLE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ENTRADA" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CORREO" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VACACIONES" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ACTIVO" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Author]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga compras\Obtiene dni empleado.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input].Columns[Copy of Author]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of Author"
+                      lineageId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output].Columns[Copy of Author]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CORREO</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Match Output].Columns[DNI]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Match Output].Columns[DNI]"
+                      name="DNI"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DNI</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga compras.Paths[Data Conversion Output]"
+              endId="Package\Carga compras\Obtiene dni empleado.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\Carga compras\Conversion Fecha y autor.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Carga compras.Paths[Lookup Match Output]"
+              endId="Package\Carga compras\Comprueba repetidos.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga compras\Obtiene dni empleado.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga compras.Paths[Lookup No Match Output]"
+              endId="Package\Carga compras\Carga Compras.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Carga compras\Comprueba repetidos.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga compras.Paths[OLE DB Source Output]"
+              endId="Package\Carga compras\Conversion Fecha y autor.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga compras\Carga de sharepoint.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{204A562B-2F09-471D-9B68-B72E0850DA52}"
+      DTS:From="Package\Borrar tabla compras para cargar registros"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga compras" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="279,42"
+          Id="Package\Borrar tabla compras para cargar registros"
+          TopLeft="34.142855799928,47.4823499382573" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Carga compras"
+          TopLeft="92,163" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="170.071427899964,89.4823499382573">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,73.5176500617427"
+              Start="0,0"
+              End="0,66.0176500617427">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.0176500617427" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga compras">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Carga compras\Carga de sharepoint"
+          TopLeft="43,80" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Carga compras\Conversion Fecha y autor"
+          TopLeft="37.7,153" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Carga compras\Obtiene dni empleado"
+          TopLeft="52.7,228" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Carga compras\Comprueba repetidos"
+          TopLeft="53.7,304" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Carga compras\Carga Compras"
+          TopLeft="72.485714528998,378.282353001235" />
+        <EdgeLayout
+          Id="Package\Carga compras.Paths[OLE DB Source Output]"
+          TopLeft="133.35,122">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga compras.Paths[Lookup No Match Output]"
+          TopLeft="145.692857264499,345.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.6823530012349"
+              Start="0,0"
+              End="0,25.1823530012349">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.1823530012349" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,6.78648900061745,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga compras.Paths[Lookup Match Output]"
+          TopLeft="143.7,270">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,7.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga compras.Paths[Data Conversion Output]"
+          TopLeft="140.2,195">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga compras\Carga de sharepoint">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga compras\Obtiene dni empleado">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmpleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga compras\Comprueba repetidos">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[FactCompras]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga compras\Carga Compras">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

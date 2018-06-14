@@ -1,0 +1,1813 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/22/2018 11:40:26 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BOSONITBI"
+  DTS:CreatorName="BOSONIT\bosonit"
+  DTS:DTSID="{0CDCE9B0-9744-4CB3-9350-E71834BBB8DB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3008.28"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CargaEmpleados"
+  DTS:PackageType="5"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{67E27250-4265-4123-8A25-5C4F04D2FA3B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.gcv]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A92890A0-1C8C-4C73-B3ED-58ED23518B33}"
+      DTS:ObjectName="BOSONITBI.gcv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=gcv;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A8600585-85F6-4115-872A-9648D29A601C}"
+      DTS:ObjectName="BOSONITBI.INTEGRACION_SHAREPOINT_SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOSONITBI;Initial Catalog=INTEGRACION_SHAREPOINT_SQL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Borra tabla empleados"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C87A2661-861D-40AB-94DC-0E24A6CB5A8D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Borra tabla empleados"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A92890A0-1C8C-4C73-B3ED-58ED23518B33}"
+          SQLTask:SqlStatementSource="truncate table [gcv].[dbo].[DimEmpleado]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga Empleados de sharepoint"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{169A2ACE-393D-476F-AF72-CE452D2AB405}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Empleados de sharepoint"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Añadir columnas calculadas"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Inputs[Derived Column Input].Columns[Copy of FechaIni]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of FechaIni"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[FechaIni_formatted]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[FechaIni_formatted]"
+                      name="FechaIni_formatted"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)([SUBSTRING](#{Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]},7,4) + "-" + [SUBSTRING](#{Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]},4,2) + "-" + [SUBSTRING](#{Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]},1,2))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)(SUBSTRING([Copy of FechaIni],7,4) + "-" + SUBSTRING([Copy of FechaIni],4,2) + "-" + SUBSTRING([Copy of FechaIni],1,2))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[Si]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[Si]"
+                      name="Si"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Si"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Si"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[No]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[No]"
+                      name="No"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"No"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"No"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga BBDD + NO ACTIVO"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of DniEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of DniEmple"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Empleados]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of Empleados"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[NOMBRE]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Empleados]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Managers]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of Managers"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[RESPONSABLE]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Managers]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of EmailEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="Copy of EmailEmple"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[CORREO]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of EmailEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Vacaciones]"
+                      cachedDataType="i1"
+                      cachedName="Copy of Vacaciones"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[VACACIONES]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Vacaciones]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[FechaIni_formatted]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaIni_formatted"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ENTRADA]"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[FechaIni_formatted]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].Columns[No]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="No"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVO]"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[No]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      dataType="wstr"
+                      length="255"
+                      name="DNI" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[NOMBRE]"
+                      dataType="wstr"
+                      length="255"
+                      name="NOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[RESPONSABLE]"
+                      dataType="wstr"
+                      length="255"
+                      name="RESPONSABLE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ENTRADA]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ENTRADA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[CORREO]"
+                      dataType="wstr"
+                      length="255"
+                      name="CORREO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[VACACIONES]"
+                      dataType="i4"
+                      name="VACACIONES" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVO]"
+                      dataType="wstr"
+                      length="50"
+                      name="ACTIVO" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga BBDD + SI ACTIVO"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of DniEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of DniEmple"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Empleados]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of Empleados"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[NOMBRE]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Empleados]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Managers]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of Managers"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[RESPONSABLE]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Managers]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of EmailEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="Copy of EmailEmple"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[CORREO]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of EmailEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Copy of Vacaciones]"
+                      cachedDataType="i1"
+                      cachedName="Copy of Vacaciones"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[VACACIONES]"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Vacaciones]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[FechaIni_formatted]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaIni_formatted"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ENTRADA]"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[FechaIni_formatted]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].Columns[Si]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Si"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVO]"
+                      lineageId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output].Columns[Si]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[DNI]"
+                      dataType="wstr"
+                      length="255"
+                      name="DNI" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[NOMBRE]"
+                      dataType="wstr"
+                      length="255"
+                      name="NOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[RESPONSABLE]"
+                      dataType="wstr"
+                      length="255"
+                      name="RESPONSABLE" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ENTRADA]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ENTRADA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[CORREO]"
+                      dataType="wstr"
+                      length="255"
+                      name="CORREO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[VACACIONES]"
+                      dataType="i4"
+                      name="VACACIONES" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVO]"
+                      dataType="wstr"
+                      length="50"
+                      name="ACTIVO" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[Empleados]"
+                      cachedDataType="nText"
+                      cachedName="Empleados"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Empleados]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[Managers]"
+                      cachedDataType="nText"
+                      cachedName="Managers"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Managers]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[DniEmple]"
+                      cachedDataType="nText"
+                      cachedName="DniEmple"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[DniEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[EmailEmple]"
+                      cachedDataType="nText"
+                      cachedName="EmailEmple"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[EmailEmple]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[Vacaciones]"
+                      cachedDataType="r4"
+                      cachedName="Vacaciones"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Vacaciones]" />
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input].Columns[FechaIni]"
+                      cachedDataType="nText"
+                      cachedName="FechaIni"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaIni]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Empleados]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Empleados]"
+                      name="Copy of Empleados"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Empleados]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Managers]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Managers]"
+                      name="Copy of Managers"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Managers]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]"
+                      name="Copy of DniEmple"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[DniEmple]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of EmailEmple]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1000"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of EmailEmple]"
+                      name="Copy of EmailEmple"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[EmailEmple]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Vacaciones]"
+                      dataType="i1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of Vacaciones]"
+                      name="Copy of Vacaciones"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Vacaciones]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of FechaIni]"
+                      name="Copy of FechaIni"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaIni]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\FechaFin Null"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="FechaFin Null"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input].Columns[FechaFin]"
+                      cachedDataType="nText"
+                      cachedName="FechaFin"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaFin]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[es nulo]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="es nulo"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaFin]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(FechaFin)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[no es nulo]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="no es nulo"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaFin]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(FechaFin)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmpleado]) [refTable]
+where [refTable].[DNI] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NOMBRE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RESPONSABLE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ENTRADA" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CORREO" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VACACIONES" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ACTIVO" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JORNADA" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Empleados de sharepoint\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input].Columns[Copy of DniEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of DniEmple"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DNI</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Lookup 1"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup 1"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmpleado]) [refTable]
+where [refTable].[DNI] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DNI" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NOMBRE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RESPONSABLE" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ENTRADA" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CORREO" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VACACIONES" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ACTIVO" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JORNADA" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Empleados de sharepoint\Lookup 1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.gcv]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input].Columns[Copy of DniEmple]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Copy of DniEmple"
+                      lineageId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output].Columns[Copy of DniEmple]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DNI</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Recoger empleados de SharePoint"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[timesheets_L_Empleados]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[BOSONITBI.INTEGRACION_SHAREPOINT_SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Empleados]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Empleados]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Empleados]"
+                      name="Empleados"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Managers]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Managers]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Managers]"
+                      name="Managers"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaIni]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[FechaIni]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaIni]"
+                      name="FechaIni"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaFin]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[FechaFin]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[FechaFin]"
+                      name="FechaFin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[DniEmple]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[DniEmple]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[DniEmple]"
+                      name="DniEmple"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[EmailEmple]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[EmailEmple]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[EmailEmple]"
+                      name="EmailEmple"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Vacaciones]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Vacaciones]"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].Columns[Vacaciones]"
+                      name="Vacaciones"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Empleados]"
+                      dataType="nText"
+                      name="Empleados" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Managers]"
+                      dataType="nText"
+                      name="Managers" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[FechaIni]"
+                      dataType="nText"
+                      name="FechaIni" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[FechaFin]"
+                      dataType="nText"
+                      name="FechaFin" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[DniEmple]"
+                      dataType="nText"
+                      name="DniEmple" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[EmailEmple]"
+                      dataType="nText"
+                      name="EmailEmple" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output].ExternalColumns[Vacaciones]"
+                      dataType="r4"
+                      name="Vacaciones" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Empleados]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Empleados]"
+                      name="Empleados" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Managers]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Managers]"
+                      name="Managers" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[FechaIni]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[FechaIni]"
+                      name="FechaIni" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[FechaFin]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[FechaFin]"
+                      name="FechaFin" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[DniEmple]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[DniEmple]"
+                      name="DniEmple" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[EmailEmple]"
+                      dataType="nText"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[EmailEmple]"
+                      name="EmailEmple" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Vacaciones]"
+                      dataType="r4"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[Vacaciones]"
+                      name="Vacaciones" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[Data Conversion Output]"
+              endId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Carga Empleados de sharepoint\Conversión de datos.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[Derived Column Output]"
+              endId="Package\Carga Empleados de sharepoint\FechaFin Null.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Carga Empleados de sharepoint\Añadir columnas calculadas.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[es nulo]"
+              endId="Package\Carga Empleados de sharepoint\Lookup.Inputs[Lookup Input]"
+              name="es nulo"
+              startId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[es nulo]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[Lookup No Match Output]"
+              endId="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Carga Empleados de sharepoint\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[Lookup No Match Output1]"
+              endId="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Carga Empleados de sharepoint\Lookup 1.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[no es nulo]"
+              endId="Package\Carga Empleados de sharepoint\Lookup 1.Inputs[Lookup Input]"
+              name="no es nulo"
+              startId="Package\Carga Empleados de sharepoint\FechaFin Null.Outputs[no es nulo]" />
+            <path
+              refId="Package\Carga Empleados de sharepoint.Paths[OLE DB Source Output]"
+              endId="Package\Carga Empleados de sharepoint\Conversión de datos.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7B9F9CAF-C3FB-42FE-8F1C-F00226849B1E}"
+      DTS:From="Package\Borra tabla empleados"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga Empleados de sharepoint" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Borra tabla empleados"
+          TopLeft="288,136" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\Carga Empleados de sharepoint"
+          TopLeft="266.5,248.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="380.5,178">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.5"
+              Start="0,0"
+              End="0,63">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Empleados de sharepoint">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO"
+          TopLeft="214.5,499" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Carga Empleados de sharepoint\Lookup 1"
+          TopLeft="490,406.5" />
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Carga Empleados de sharepoint\Conversión de datos"
+          TopLeft="313.714285471001,143" />
+        <NodeLayout
+          Size="239,42"
+          Id="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint"
+          TopLeft="278.785713370965,71.5588235723106" />
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Carga Empleados de sharepoint\FechaFin Null"
+          TopLeft="331,301" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Carga Empleados de sharepoint\Lookup"
+          TopLeft="253,403" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\Carga Empleados de sharepoint\Añadir columnas calculadas"
+          TopLeft="301.071428104323,215.005882430159" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO"
+          TopLeft="439,501.25" />
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[OLE DB Source Output]"
+          TopLeft="399.649999420983,113.158823572311">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.8411764276894"
+              Start="0,0"
+              End="0,22.3411764276894">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.3411764276894" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[no es nulo]"
+          TopLeft="424.066666666667,342.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="122.333333333333,63.9"
+              Start="0,0"
+              End="122.333333333333,56.4">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.9883798882682" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.9883798882682"
+                    Point2="0,25.9883798882682"
+                    Point3="4,25.9883798882682" />
+                  <mssgle:LineSegment
+                    End="118.333333333333,25.9883798882682" />
+                  <mssgle:CubicBezierSegment
+                    Point1="118.333333333333,25.9883798882682"
+                    Point2="122.333333333333,25.9883798882682"
+                    Point3="122.333333333333,29.9883798882682" />
+                  <mssgle:LineSegment
+                    End="122.333333333333,56.4" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="37.7030143229165,30.9883798882682,46.9273046875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[Lookup No Match Output1]"
+          TopLeft="544.25,448.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.75"
+              Start="0,0"
+              End="0,45.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,16.8203125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[Lookup No Match Output]"
+          TopLeft="312.25,445">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,17.4453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[es nulo]"
+          TopLeft="379.533333333333,342.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-70.1333333333333,60.4"
+              Start="0,0"
+              End="-70.1333333333333,52.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5649162011173" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5649162011173"
+                    Point2="0,24.5649162011173"
+                    Point3="-4,24.5649162011173" />
+                  <mssgle:LineSegment
+                    End="-66.1333333333333,24.5649162011173" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-66.1333333333333,24.5649162011173"
+                    Point2="-70.1333333333333,24.5649162011173"
+                    Point3="-70.1333333333333,28.5649162011173" />
+                  <mssgle:LineSegment
+                    End="-70.1333333333333,52.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-51.6483072916666,29.5649162011173,33.16328125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[Derived Column Output]"
+          TopLeft="403.435714052161,256.605882430159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.3941175698409"
+              Start="0,0"
+              End="0,36.8941175698409">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.8941175698409" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Empleados de sharepoint.Paths[Data Conversion Output]"
+          TopLeft="402.992856787662,184.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.4058824301591"
+              Start="0,0"
+              End="0,22.9058824301591">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.9058824301591" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Empleados de sharepoint\Carga BBDD + SI ACTIVO">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Empleados de sharepoint\Lookup 1">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmpleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Empleados de sharepoint\Recoger empleados de SharePoint">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Empleados de sharepoint\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmpleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Empleados de sharepoint\Carga BBDD + NO ACTIVO">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

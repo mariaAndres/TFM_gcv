@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [testuser]
+    WITH PASSWORD = N'^?tmwpo4rdihgvulaw,ikklvmsFT7_&#$!~<Oxg|ydcWrasS' MUST_CHANGE, SID = 0x3AEFDBBAFCEFE14EBFA52CCB5A6CAC9A, DEFAULT_DATABASE = [unhiberseDB], DEFAULT_LANGUAGE = [us_english], CHECK_EXPIRATION = ON;
+
