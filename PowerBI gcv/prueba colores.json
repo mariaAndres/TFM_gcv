@@ -1,0 +1,7 @@
+{
+	"name": "prueba colores",
+	"dataColors": [ "#60BB46", "#F68C1F", "#015472", "#000000" ] ,
+	"background": "#015472",
+	"foreground": "#ffffff",
+	"tableAccent": "#6798AA"
+}
